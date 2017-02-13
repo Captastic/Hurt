@@ -4,8 +4,8 @@ package capriotti.anthony.Hurtlocker;
  * Created by anthonycapriotti on 2/8/17.
  */
 public class Price {
-    String price;
-    int occurences;
+    static String price;
+    static int occurences;
 
 
     Price(String price, int occurences){
@@ -25,8 +25,8 @@ public class Price {
         this.occurences++;
     }
 
-    @Override
-    public String toString(){
+   @Override
+   public  String toString(){
         return "price = " + price +
                 ", seen = " + occurences;
     }

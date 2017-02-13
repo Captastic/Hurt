@@ -42,4 +42,15 @@ public class GroceryItem {
                 "name = " + name + '\'' +
                 ", price And number of price occurences" + priceAndOccurences;
     }
+
+    public String output(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("name:\t" + name)
+                .append("\t\tseen: " + priceAndOccurences + " times\n")
+                .append("==========\t\t==========\n");
+        for (Map.Entry<String, Integer> list : priceAndOccurences.entrySet()){
+            stringBuilder.append("Price:\t" + list.getValue() + " times\n");
+        }
+        return stringBuilder.toString();
+    }
 }
