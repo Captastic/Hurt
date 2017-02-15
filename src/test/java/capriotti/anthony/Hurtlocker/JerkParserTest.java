@@ -25,8 +25,8 @@ public class JerkParserTest {
     @Test
     public void splitItemsTest() {
         jerkParser = new JerkParser();
-        String expectedInput = "naMe:Milk;price:3.23;type:Food;expiration:1/25/2016##";
-        String[] actualOutput = jerkParser.splitListing(expectedInput);
+        String input = "naMe:Milk;price:3.23;type:Food;expiration:1/25/2016##naME:BreaD;price:1.23;type:Food;expiration:1/02/2016##";
+        String[] actualOutput = jerkParser.splitListing(input);
         Assert.assertTrue(actualOutput.length == 2);
     }
 
@@ -45,7 +45,7 @@ public class JerkParserTest {
         String actual = null;
         try {
             actual = jerkParser.checkForNullValue("naMe:Milk");
-        } catch (ValueNotFoundException e) {
+        } catch (ErrorHandler e) {
         }
         Assert.assertEquals("Milk will return", "Milk", actual);
     }
@@ -57,7 +57,7 @@ public class JerkParserTest {
         String actual = null;
         try {
             actual = jerkParser.checkForNullValue("naMe:");
-        } catch (ValueNotFoundException e) {
+        } catch (ErrorHandler e) {
         }
         Assert.assertEquals("Milk will return", null, actual);
     }
@@ -65,9 +65,27 @@ public class JerkParserTest {
     @Test
     public void spellCheckTest(){
         jerkParser = new JerkParser();
-        String expected = "Milk";
-        String actual = jerkParser.checkSpelling("MiLK");
-        Assert.assertEquals("Output will be Milk", expected,actual);
+        String expected = "bread";
+        String actual = jerkParser.spellCheck("BrEaD");
+        assertEquals("lower case bread will return", expected, actual);
+    }
+
+    @Test
+    //spell check for c00kies
+    public void scheckSpellingTestCookies(){
+        jerkParser = new JerkParser();
+        String expected = "cookie";
+        String actual = jerkParser.checkSpelling("c00kie");
+        Assert.assertEquals("Output will be bread", expected,actual);
+    }
+
+    @Test
+    //other items spellcheck
+    public void convertToLowerCaseTest(){
+        jerkParser = new JerkParser();
+        String expected = "milk";
+        String actual = jerkParser.convertToLowerCase("MiLK");
+        assertEquals("milk will return", expected, actual);
     }
 
     @Test

@@ -1,15 +1,14 @@
 package capriotti.anthony.Hurtlocker;
 import org.apache.commons.io.IOUtils;
-import java.io.IOException;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 /**
  * Created by anthonycapriotti on 2/9/17.
  */
-public class Engine {
-
-
+public class Main {
 
     public String readRawDataToString() throws Exception{
         ClassLoader classLoader = getClass().getClassLoader();
@@ -25,5 +24,4 @@ public class Engine {
         jerkParser.printMap();
         jerkParser.printError();
     }
-
 }

@@ -1,15 +1,14 @@
 package capriotti.anthony.Hurtlocker;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by anthonycapriotti on 2/8/17.
  */
 public class GroceryItem {
-    String name;
-    int count;
-    Map<String, Integer> priceAndOccurences = new HashMap<String, Integer>();
+    public String name;
+    public int count;
+    public Map<String, Integer> priceAndOccurences;
 
 
     public GroceryItem(String name, Map<String, Integer> priceAndOccurences){
@@ -39,17 +38,20 @@ public class GroceryItem {
     @Override
     public String toString(){
         return "GroceryItem " +
-                "name = " + name + '\'' +
+                "name= " + name + '\'' +
+                "' count=" + count +
                 ", price And number of price occurences" + priceAndOccurences;
     }
 
     public String output(){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("name:\t" + name)
-                .append("\t\tseen: " + priceAndOccurences + " times\n")
-                .append("==========\t\t==========\n");
+                .append("\t\tseen: " + count + " times\n")
+                .append("=============\t\t=============\n");
         for (Map.Entry<String, Integer> list : priceAndOccurences.entrySet()){
-            stringBuilder.append("Price:\t" + list.getValue() + " times\n");
+            stringBuilder.append("Price:\t" + list.getKey())
+                    .append("\t\tseen: " + list.getValue() + " times\n")
+                    .append("-------------\t\t-------------\n");
         }
         return stringBuilder.toString();
     }

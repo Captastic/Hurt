@@ -11,28 +11,34 @@ import java.util.regex.Pattern;
 public class JerkParser {
     GroceryItem groceryItem;
 
-    Map<String, GroceryItem> groceryList = new HashMap<String, GroceryItem>();
+    Map<String, GroceryItem> groceryList = new HashMap<>();
+
+    public String[] splitListing(String input){
+        String[] itemsArray = input.split("##");
+        return itemsArray;
+    }
+
+    public String[] parseKeyValuePairs(String item){
+        String[] pairs = item.split("[^a-zA-Z0-9:./]");
+        return pairs;
+    }
 
     public void parseInput(String input){
-        String[] items = splitListing(input);
-        for (int i = 0; i < items.length; i++){
-            String [] itemArray = parseKeyValuePairs(items[i]);
-            addInputToMap(itemArray[0], itemArray[1]);
+        String[] itemsArray = splitListing(input);
+        for (int i = 0; i < itemsArray.length-1; i++){
+            String[] items = parseKeyValuePairs(itemsArray[i]);
+            addInputToMap(items[0], items[1]);
         }
     }
 
-    public String[] splitListing(String input){
-        String[] items = input.split("##");
-        return items;
-    }
-
-    public void addInputToMap(String item, String itemprice){
-        Map<String, Integer> priceAndOccurences = new HashMap<String, Integer>();
+    public void addInputToMap(String item, String itemPrice){
+        Map<String, Integer> priceAndOccurences = new HashMap<>();
         String name;
         String price = null;
+
         try {
             name = checkForNullValue(item);
-            price = checkForNullValue(itemprice);
+            price = checkForNullValue(itemPrice);
         } catch (ErrorHandler e){
             name = null;
         }
@@ -46,11 +52,6 @@ public class JerkParser {
             }
         }
         addPriceToGroceryItem(name,price);
-    }
-
-    public String[] parseKeyValuePairs(String item){
-        String[] pairs = item.split("[^a-zA-Z0-9:./]");
-        return pairs;
     }
 
     public void printMap(){
