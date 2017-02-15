@@ -1,8 +1,7 @@
 package capriotti.anthony.Hurtlocker;
+import org.apache.commons.io.IOUtils;
+import java.io.IOException;
 
-import javafx.scene.shape.Path;
-import sun.applet.Main;
-import sun.misc.IOUtils;
 
 
 /**
@@ -20,7 +19,11 @@ public class Engine {
 
     public static void main(String[] args) throws Exception{
         String output = (new Main()).readRawDataToString();
-        System.out.println(output);
+        JerkParser jerkParser = new JerkParser();
+
+        jerkParser.parseInput(output);
+        jerkParser.printMap();
+        jerkParser.printError();
     }
 
 }

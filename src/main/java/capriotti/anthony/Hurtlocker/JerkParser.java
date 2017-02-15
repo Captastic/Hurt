@@ -32,13 +32,13 @@ public class JerkParser {
         String price = null;
         try {
             name = checkForNullValue(item);
-            price = checkForNullValue(price);
-        } catch (ValueNotFoundExcpetion e){
-            item = null;
+            price = checkForNullValue(itemprice);
+        } catch (ErrorHandler e){
+            name = null;
         }
 
         if (name != null && price != null){
-            name = spellCheck(item);
+            name = spellCheck(name);
             if (!checkForExisitingGroceryItem(name)){
                 priceAndOccurences.put(price , 0);
                 GroceryItem groceryItem = new GroceryItem(name, priceAndOccurences);
@@ -55,12 +55,12 @@ public class JerkParser {
 
     public void printMap(){
         for (HashMap.Entry<String, GroceryItem> entry : groceryList.entrySet()){
-            System.out.println(entry.getValue().formattedOutput());
+            System.out.println(entry.getValue().output());
         }
     }
 
     public void printError(){
-        System.out.println(ValueNotFoundException.formattedErrorOutput());
+        System.out.println(ErrorHandler.outputFormat());
     }
 
     public String spellCheck(String item){
@@ -82,14 +82,14 @@ public class JerkParser {
         }
     }
 
-    public String checkForNullValue(String value){
+    public String checkForNullValue(String value) throws ErrorHandler{
         Pattern pattern = Pattern.compile("[^:]*$");
         Matcher matcher = pattern.matcher(value);
         matcher.find();
 
         Matcher noMatcher = Pattern.compile("^$").matcher(matcher.group());
         if (noMatcher.find()){
-            throw new ValueNotFoundException("Not Found");
+            throw new ErrorHandler("Not Found");
         }
         return matcher.group();
     }

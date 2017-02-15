@@ -4,13 +4,14 @@ package capriotti.anthony.Hurtlocker;
  * Created by anthonycapriotti on 2/8/17.
  */
 public class ErrorHandler extends Exception {
-    int errorCounter;
+    static int errorCounter = 0;
 
-    public void itemNotFoundException(String exception){
+    public ErrorHandler(String exception){
+        super(exception);
         errorCounter++;
     }
 
-    public String outputFormat(){
+    public static String outputFormat(){
         return "Errors\t\t\t\tseen: "+errorCounter+" times";
     }
 }
